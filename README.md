@@ -1,2 +1,2 @@
 # EvilTooth
-Configurable purposefully misbehaving BlueZ stack
+repo of stuff for evil bluetooth...stuff
