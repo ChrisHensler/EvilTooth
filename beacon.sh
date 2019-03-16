@@ -4,9 +4,9 @@ sudo bdaddr 01:23:DE:AD:BE:EF
 #reset bluetooth (needs to happen after addr set)
 sudo hciconfig 0 reset
 
-#set advertising frequncy
-if [ fast = $2 ]; then sudo hcitool -i hci0 cmd 0x08 0x0006 01 00 01 00 03 00 00 00 00 00 00 00 00 07 00; fi
-if [ slow = $2 ]; then sudo hcitool -i hci0 cmd 0x08 0x0006 AF 00 AF 00 03 00 00 00 00 00 00 00 00 07 00; fi
+#set advertising frequncy                      |OGF |OCF   | MIN | MAX |T |O |D | Direct Address  |M |F | 
+if [ fast = $2 ]; then sudo hcitool -i hci0 cmd 0x08 0x0006 0A 00 0B 00 00 00 00 01 23 DE AD BE EF 07 00; fi
+if [ slow = $2 ]; then sudo hcitool -i hci0 cmd 0x08 0x0006 FE FF FF FF 00 00 00 01 23 DE AD BE EF 07 00; fi
 
 #set advertise
 sudo hcitool -i hci0 cmd 0x08 0x0008 1E 02 01 1A 1A FF 4C 00 02 15 11 11 22 22 33 33 44 44 55 55 66 66 77 77 88 88 00 00 00 00 C8 00
