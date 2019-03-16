@@ -1,3 +1,7 @@
+#set addr
+sudo bdaddr 01:23:DE:AD:BE:EF
+
+#reset bluetooth (needs to happen after addr set)
 sudo hciconfig 0 reset
 
 #set advertising frequncy
