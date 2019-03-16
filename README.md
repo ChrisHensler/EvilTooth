@@ -1,2 +1,2 @@
-# EvilTooth
-repo of stuff for evil bluetooth...stuff
+# QuickBeacon
+Small script to get BLE Advertising set up. Works on BlueZ-enbabled devices (like Raspberry Pi 3)
