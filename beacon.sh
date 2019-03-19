@@ -1,5 +1,10 @@
+
+ADDR=01:23:DE:AD:BE:EF
+if [ ! -z $1 ]; then ADDR=$1; fi
+echo "using address "$ADDR
+
 #set addr
-sudo bdaddr 01:23:DE:AD:BE:EF
+sudo bdaddr $ADDR
 
 #reset bluetooth (needs to happen after addr set)
 sudo hciconfig 0 reset
@@ -17,3 +22,6 @@ sudo btmgmt -i hci0 connectable on
 if [ ! -z $1 ]; then sudo btmgmt -i hci0 name $1; fi
 sudo btmgmt -i hci0 advertising on
 sudo btmgmt -i hci0 power on
+
+echo advertising started
+date +%Y_%m_%d__%H_%M_%S

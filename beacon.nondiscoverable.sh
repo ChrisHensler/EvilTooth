@@ -17,3 +17,6 @@ sudo btmgmt -i hci0 connectable on
 if [ ! -z $1 ]; then sudo btmgmt -i hci0 name $1; fi
 sudo btmgmt -i hci0 advertising on
 sudo btmgmt -i hci0 power on
+
+echo advertising started
+date +%Y_%m_%d__%H_%M_%S
