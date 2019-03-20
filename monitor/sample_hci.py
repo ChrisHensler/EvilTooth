@@ -4,6 +4,7 @@ import datetime
 hci_output=''
 prev_occurances = {}
 while(1) :
+    print('scanning...\n')
     #scan ble
     run(args=['sudo', "hciconfig", "hci0", "down"])
     run(args=['sudo', "hciconfig", "hci0", "up"])
@@ -13,7 +14,7 @@ while(1) :
     addr_to_occurances = {}
 
     if hci_output.stdout:
-        print("proccessing output...\n")
+        print("processing output...\n")
         #parse input
         for line in hci_output.stdout.splitlines():
             segments = line.split(' ')
