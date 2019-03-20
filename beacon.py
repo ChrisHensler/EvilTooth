@@ -42,8 +42,8 @@ print("Advertising Address: %s,\n Min Interval: %s,\nMax Interval: %s\n"%(advert
 cmd_args = ['sudo', 'hcitool','-i','hci0','cmd']
 cmd_args.append('0x08')                                     #ogf
 cmd_args.append('0x0006')                                   #ocf
-cmd_args += min_interval.split(' ')                                    #min_interval
-cmd_args += max_interval.split(' ')                                    #max_interval
+cmd_args += min_interval.split(' ')[::-1]                                    #min_interval
+cmd_args += max_interval.split(' ')[::-1]                                    #max_interval
 cmd_args += '00'
 cmd_args += '00'
 cmd_args += '00'
