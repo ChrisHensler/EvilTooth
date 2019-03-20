@@ -56,4 +56,4 @@ print(run(args=["sudo","btmgmt","-i","hci0",name]))
 print(run(args=["sudo","btmgmt","-i","hci0","advertising","on"]))
 print(run(args=["sudo","btmgmt","-i","hci0","power","on"]))
 
-print(datetime.datetime.utcnow)
+print(datetime.datetime.utcnow.strftime('Advertising started: %B %d %Y - %H:%M:%S'))
