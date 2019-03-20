@@ -7,7 +7,7 @@ parser = argparse.ArgumentParser(description='Short sample app')
 
 parser.add_argument('-a', action="store", dest="advertising_address", help='advertising address (defaults to 01:23:DE:AD:BE:EF)', default="01:23:DE:AD:BE:EF")
 parser.add_argument('-i', action="store", dest="interval", help='advertising interval', type=int, default=10)
-parser.add_argument('-n', action="store", dest="name", help='device name')
+parser.add_argument('-n', action="store", dest="name", help='device name', default='')
 
 args = parser.parse_args()
 
@@ -52,7 +52,7 @@ print(run(args="sudo hcitool -i hci0 cmd 0x08 0x0008 1E 02 01 1A 1A FF 4C 00 02 
 
 print(run(args=["sudo","btmgmt", "-i", "hci0","le","on"]))
 print(run(args=["sudo","btmgmt","-i","hci0","connectable","on"]))
-print(run(args=["sudo","btmgmt","-i","hci0","name",name]))
+print(run(args=["sudo","btmgmt","-i","hci0",name]))
 print(run(args=["sudo","btmgmt","-i","hci0","advertising","on"]))
 print(run(args=["sudo","btmgmt","-i","hci0","power","on"]))
 
