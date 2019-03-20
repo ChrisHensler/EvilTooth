@@ -27,7 +27,7 @@ run(args=['sudo', 'hciconfig','0','reset'])
 def int_to_hexstring(i, l=4):
     s1 = "{:04x}".format(i)
     s2=""
-    for i in range(0,len(str)):
+    for i in range(0,len(s1)):
         s2 += s1[i]
         if(i%2 == 0):
             s2 += ' '
