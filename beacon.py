@@ -29,7 +29,7 @@ def int_to_hexstring(i):
     s2=""
     for i in range(0,len(s1)):
         s2 += s1[i]
-        if(i%2 == 0):
+        if((i-1)%2 == 0):
             s2 += ' '
     return s2[0: 5]
 
