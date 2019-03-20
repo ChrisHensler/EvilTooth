@@ -34,11 +34,16 @@ def int_to_hexstring(i):
     return s2[0: 5]
 
 
+max_interval = int_to_hexstring(interval+1).split(' ')
+min_interval = int_to_hexstring(interval).split(' ')
+
+print("Advertising Address: %s,\n Min Interval: %s,\nMax Interval: %s\n"%(advertising_address, min_interval, max_interval))
+
 cmd_args = ['sudo', 'hcitool','-i','hci0','cmd']
 cmd_args.append('0x08')                                     #ogf
 cmd_args.append('0x0006')                                   #ocf
-cmd_args += int_to_hexstring(interval).split(' ')           #min_interval
-cmd_args += int_to_hexstring(interval+1).split(' ')         #max_interval
+cmd_args += min_interval                                    #min_interval
+cmd_args += max_interval                                    #max_interval
 cmd_args += '00'
 cmd_args += '00'
 cmd_args += '00'
@@ -56,4 +61,4 @@ print(run(args=["sudo","btmgmt","-i","hci0",name]).stdout)
 print(run(args=["sudo","btmgmt","-i","hci0","advertising","on"]).stdout)
 print(run(args=["sudo","btmgmt","-i","hci0","power","on"]).stdout)
 
-print(datetime.datetime.utcnow.strftime('Advertising started: %B %d %Y - %H:%M:%S'))
+print(datetime.datetime.utcnow().strftime('Advertising started: %B %d %Y - %H:%M:%S'))
