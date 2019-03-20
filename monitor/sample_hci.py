@@ -5,8 +5,8 @@ hci_output=''
 prev_occurances = {}
 while(1) :
     #scan ble
-    run(args=["hciconfig", "hci0", "down"])
-    run(args=["hciconfig", "hci0", "up"])
+    run(args=['sudo', "hciconfig", "hci0", "down"])
+    run(args=['sudo', "hciconfig", "hci0", "up"])
     hci_output = run(args=['sudo', 'timeout','5','hcitool','lescan','--duplicates'])
 
     addr_to_names = {}
