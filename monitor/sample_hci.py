@@ -13,6 +13,7 @@ while(1) :
     addr_to_occurances = {}
 
     if hci_output.stdout:
+        print("proccessing output...\n")
         #parse input
         for line in hci_output.stdout.splitlines():
             segments = line.split(' ')
@@ -31,8 +32,8 @@ while(1) :
         #record address to names
         time_recorded = datetime.datetime.now()
         for addr in addr_to_names:
-            with open("scans/names" + addr + ".txt") as f_name:
-                with open("scans/occurances" + addr + ".txt") as f_occur:
+            with open("scans/names" + addr + ".txt",'w') as f_name:
+                with open("scans/occurances" + addr + ".txt",'w') as f_occur:
                     f_name.write("%s\t%s", time_recorded, len(addr_to_names))
                     f_occur.write("%s\t%s", time_recorded, addr_to_occurances[addr])
 
