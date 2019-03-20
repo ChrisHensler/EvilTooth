@@ -24,15 +24,14 @@ run(args=['sudo', 'bdaddr',advertising_address])
 run(args=['sudo', 'hciconfig','0','reset'])
 
 #set advertising frequency
-def int_to_hexstring(i, l=4):
+def int_to_hexstring(i):
     s1 = "{:04x}".format(i)
     s2=""
     for i in range(0,len(s1)):
         s2 += s1[i]
         if(i%2 == 0):
             s2 += ' '
-    true_len = l + l/2 - 1
-    return s2[0: true_len]
+    return s2[0: 5]
 
 
 cmd_args = ['sudo', 'hcitool','-i','hci0','cmd']
