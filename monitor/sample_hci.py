@@ -1,4 +1,4 @@
-from subprocess import run
+from subprocess import run,check_output
 import datetime
 
 hci_output=''
@@ -7,14 +7,14 @@ while(1) :
     #scan ble
     run(args=['sudo', "hciconfig", "hci0", "down"])
     run(args=['sudo', "hciconfig", "hci0", "up"])
-    hci_output = run(args=['sudo', 'timeout','5','hcitool','lescan','--duplicates'])
+    hci_output = check_output(args=['sudo', 'timeout','5','hcitool','lescan','--duplicates'])
 
     addr_to_names = {}
     addr_to_occurances = {}
 
-    if hci_output.stdout:
+    if hci_output:
         #parse input
-        for line in hci_output.stdout.splitlines():
+        for line in hci_output.splitlines():
             segments = line.split(' ')
             addr = segments[0]
             name = segments[1]
