@@ -8,11 +8,14 @@ while(1) :
     #scan ble
     run(args=['sudo', "hciconfig", "hci0", "down"])
     run(args=['sudo', "hciconfig", "hci0", "up"])
-    hci_output = run(args=['sudo', 'timeout','5','hcitool','lescan','--duplicates'], stdout=PIPE)
+    hci_output = run(args=['sudo', 'timeout','5','hcitool','lescan','--duplicates'], stdout=PIPE, stderr=PIPE)
 
     addr_to_names = {}
     addr_to_occurances = {}
 
+
+    if hci_output.stderr:
+        print(hci_output.stderr)
     if hci_output.stdout:
         print("processing output...\n")
         #parse input
