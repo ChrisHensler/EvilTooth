@@ -6,8 +6,8 @@ from subprocess import run
 parser = argparse.ArgumentParser(description='Short sample app')
 
 parser.add_argument('-a', action="store", dest="advertising_address", help='advertising address (defaults to 01:23:DE:AD:BE:EF)', default="01:23:DE:AD:BE:EF")
-parser.add_argument('-i', action="store", dest="interval", help='advertising interval', type=int, default=10)
-parser.add_argument('-n', action="store", dest="name", help='device name', default='')
+parser.add_argument('-i', action="store", dest="interval", help='advertising interval', type=int, default=50)
+parser.add_argument('-n', action="store", dest="name", help='device name', default='QuickBeacon')
 
 args = parser.parse_args()
 
