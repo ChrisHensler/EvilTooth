@@ -1,27 +1,36 @@
 from subprocess import run,check_output,PIPE, Popen,call
 import datetime
 
-hci_output=''
+
 prev_occurances = {}
-while(1) :
-    print('scanning...')
-    #scan ble
-    run(args=['sudo', "hciconfig", "hci0", "down"])
-    run(args=['sudo', "hciconfig", "hci0", "up"])
-    call('sudo timeout 2 hcitool lescan --duplicates > scans/raw/sample_hci.txt')
-    exit()
-    hci_output = ''
+print('scanning...')
 
-    with open('scans/raw/sample_hci.txt', 'r') as r:
-        hci_output=r.read()
+#scan ble
+run(args=['sudo', "hciconfig", "hci0", "down"])
+run(args=['sudo', "hciconfig", "hci0", "up"])
+monitor_proc = Popen(['sudo','timeout','2','hcitool','lescan','--duplicates'], stdout=PIPE)
 
+addr_to_names = {}
+addr_to_occurances = {}
+
+start_time = datetime.datetime.now()
+start_time_actual = start_time
+interval = 30
+
+def new_log():
+    global addr_to_names
+    global addr_to_occurances
     addr_to_names = {}
     addr_to_occurances = {}
 
-    print(hci_output)
+
+def output(msg):
+    print(msg)
+
+for hci_output in iter(monitor_proc.stdout.readline, b''):
+    output(line)
     if('Input/output error' in hci_output):
-        print(hci_output)
-        continue
+        exit()
 
     #parse input
     for line in hci_output.splitlines():
@@ -34,22 +43,21 @@ while(1) :
             addr_to_occurances[addr] = 0
             
         if(name not in addr_to_names[addr]): addr_to_names[addr].append(name)
-
         addr_to_occurances[addr] += 1
 
+        #record address to names
+        time_recorded = datetime.datetime.now()
 
-    #record address to names
-    time_recorded = datetime.datetime.now()
-    for addr in addr_to_names:
-        with open("scans/names" + addr + ".txt",'w') as f_name:
-            with open("scans/occurances" + addr + ".txt",'w') as f_occur:
-                f_name.write("%s\t%s", time_recorded, len(addr_to_names))
-                f_occur.write("%s\t%s", time_recorded, addr_to_occurances[addr])
+        if(time_recorded - start_time > interval):
+            #new slice
+            start_time = time_recorded
+            output("new slice: " + str(start_time))
 
-                if(len(addr_to_names) > 1):
-                    print(addr + " has multiple names, this may be indicative of an attack")
+        for addr in addr_to_names:
+            if(len(addr_to_names) > 1):
+                output(addr + " has multiple names, this may be indicative of an attack")
 
-                if addr_to_occurances[addr]/prev_occurances[addr] > 3:
-                    print(addr + " has has seen a major spike in activity, this may be indicative of an attack")
+            if addr_to_occurances[addr]/prev_occurances[addr] > 3:
+                output(addr + " has has seen a major spike in activity, this may be indicative of an attack")
 
-                prev_occurances[addr] = addr_to_occurances[addr]
+            prev_occurances[addr] = addr_to_occurances[addr]
