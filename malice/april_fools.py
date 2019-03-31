@@ -14,10 +14,9 @@ def celebrate(adv_func, n_ident=0, n_total=1):
 
     addresses = []
 
-    for hci_output in iter(monitor_proc.stdout.readline, b''):
-        print('recvd')
-        hci_output = hci_output.decode('utf-8')
-
+    while datetime.datetime.now() - start_time <= timeout:
+        print('recving')
+        hci_output = monitor_proc.stdout.readline().decode('utf-8')
         print(hci_output)
         if('Input/output error' in hci_output):
             exit()
@@ -30,9 +29,6 @@ def celebrate(adv_func, n_ident=0, n_total=1):
 
         if(name and not '(unknown)' in name):
             addresses.append(addresses)
-
-        if(datetime.datetime.now() - start_time > timeout):
-            break
 
     #advertise a chunk
     print("found " + len(addresses) + " addresses")
