@@ -35,8 +35,8 @@ def celebrate(adv_func, n_ident=0, n_total=1):
     #advertise a chunk
     print("found %d addresses",len(addresses))
     print("BEGIN THE FOOLING")
-    s = len(addresses) * n_ident / n_total
-    e = len(addresses) * (n_ident+1) / n_total
+    s = int(len(addresses) * n_ident / n_total)
+    e = int(len(addresses) * (n_ident+1) / n_total)
     for addr in sorted(addresses)[s:e]:
         print("fooling " + addr)
         adv_func(addr)
