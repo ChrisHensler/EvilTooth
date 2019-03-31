@@ -60,8 +60,8 @@ for hci_output in iter(monitor_proc.stdout.readline, b''):
 
         for addr in addr_to_names:
             if(len(addr_to_names) > 1):
-                output(addr + " has multiple names, this may be indicative of an attack")
+                output(addr + " has multiple names, this may be indicative of an attack: " + str(addr_to_names))
             if(addr in prev_occurances and prev_occurances[addr] > 0 and addr_to_occurances[addr]/prev_occurances[addr] > 3):
-                output(addr + " has has seen a major spike in activity, this may be indicative of an attack")
+                output(addr + " has has seen a major spike in activity, this may be indicative of an attack: " + prev_occurances[addr] + "->" + addr_to_occurances[addr])
 
             prev_occurances[addr] = addr_to_occurances[addr]
