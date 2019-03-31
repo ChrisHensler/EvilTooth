@@ -42,12 +42,15 @@ for hci_output in iter(monitor_proc.stdout.readline, b''):
         segments = line.split(' ')
         addr = segments[0]
         name = segments[1]
+        print("name")
+        print(name)
 
         if(not addr in addr_to_names):
             addr_to_names[addr] = []
             addr_to_occurances[addr] = 0
             
-        if(name not in addr_to_names[addr]): addr_to_names[addr].append(name)
+        if(name not in addr_to_names[addr]):
+            addr_to_names[addr].append(name)
         addr_to_occurances[addr] += 1
 
         #record address to names
