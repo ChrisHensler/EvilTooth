@@ -1,6 +1,6 @@
 from subprocess import run,check_output,PIPE, Popen,call
-import datetime
 import advertise
+import datetime
 
 
 def celebrate():
