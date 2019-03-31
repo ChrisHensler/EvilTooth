@@ -29,7 +29,7 @@ def output(msg):
 
 for hci_output in iter(monitor_proc.stdout.readline, b''):
     hci_output = str(hci_output)
-    
+
     output(hci_output)
     if('Input/output error' in hci_output):
         exit()
@@ -40,7 +40,7 @@ for hci_output in iter(monitor_proc.stdout.readline, b''):
         addr = segments[0]
         name = segments[1]
 
-        if(not addr_to_names[addr]):
+        if(not addr in addr_to_names):
             addr_to_names[addr] = []
             addr_to_occurances[addr] = 0
             
