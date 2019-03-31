@@ -15,7 +15,7 @@ addr_to_occurances = {}
 
 start_time = datetime.datetime.now()
 start_time_actual = start_time
-interval = 30
+interval = datetime.timedelta(seconds=120)
 
 def new_log():
     global addr_to_names
