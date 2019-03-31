@@ -1,9 +1,8 @@
 from subprocess import run,check_output,PIPE, Popen,call
-import advertise
 import datetime
 
-
-def celebrate():
+#takes function with 1 param
+def celebrate(on_new_addr):
     #scan ble
     run(args=['sudo', "hciconfig", "hci0", "down"])
     run(args=['sudo', "hciconfig", "hci0", "up"])
@@ -13,9 +12,6 @@ def celebrate():
 
     def output(msg):
         print(msg)
-
-    def advertise(addr):
-        advertise.advertise(advertising_address=addr)
 
     for hci_output in iter(monitor_proc.stdout.readline, b''):
         hci_output = hci_output.decode('utf-8')
@@ -31,5 +27,5 @@ def celebrate():
             name = segments[1]
 
             if(not addr in addrs):
-                advertise(addr)
+                on_new_addr(addr)
                 addr[addr] = 1
