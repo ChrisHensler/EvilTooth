@@ -7,18 +7,13 @@ def celebrate(adv_func, n_ident=0, n_total=1):
     #scan ble
     run(args=['sudo', "hciconfig", "hci0", "down"])
     run(args=['sudo', "hciconfig", "hci0", "up"])
-    monitor_proc = Popen(['sudo','hcitool','lescan'], stdout=PIPE)
+    monitor_proc = Popen(['timeout','5','--preserve-status','sudo','hcitool','lescan'], stdout=PIPE)
     print("monitor proc opened: " + " ".join(['sudo','hcitool','lescan']))
 
     start_time = datetime.datetime.now()
     timeout = datetime.timedelta(seconds=8)
 
     addresses = []
-
-    while datetime.datetime.now() - start_time <= timeout:
-        time.sleep(1)
-
-    monitor_proc.kill()
 
     print('recving')
     hci_output = monitor_proc.communicate()[0].decode('utf-8')
