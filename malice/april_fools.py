@@ -7,7 +7,7 @@ def celebrate(adv_func, n_ident=0, n_total=1):
     #scan ble
     run(args=['sudo', "hciconfig", "hci0", "down"])
     run(args=['sudo', "hciconfig", "hci0", "up"])
-    monitor_proc = Popen(['timeout','5','--preserve-status','sudo','hcitool','lescan'], stdout=PIPE)
+    monitor_proc = Popen(['timeout','--preserve-status','5','sudo','hcitool','lescan'], stdout=PIPE)
     print("monitor proc opened: " + " ".join(['sudo','hcitool','lescan']))
 
     start_time = datetime.datetime.now()
