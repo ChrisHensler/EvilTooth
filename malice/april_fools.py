@@ -8,7 +8,7 @@ def celebrate(on_new_addr):
     run(args=['sudo', "hciconfig", "hci0", "up"])
     monitor_proc = Popen(['sudo','hcitool','lescan','--duplicates'], stdout=PIPE)
 
-    addrs = {}
+    addresses = {}
 
     def output(msg):
         print(msg)
@@ -26,6 +26,6 @@ def celebrate(on_new_addr):
             addr = segments[0]
             name = segments[1]
 
-            if(not addr in addrs):
+            if(not addr in addresses):
                 on_new_addr(addr)
-                addr[addr] = 1
+                addresses[addr] = 1
