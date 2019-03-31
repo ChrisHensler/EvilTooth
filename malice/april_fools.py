@@ -29,7 +29,7 @@ def celebrate(adv_func, n_ident=0, n_total=1):
             addr = segments[0]
             name = segments[1]
 
-        if(name and not '(unknown)' in name)
+        if(name and not '(unknown)' in name):
             addresses.append(addresses)
 
         if(datetime.datetime.now() - start_time > timeout):
