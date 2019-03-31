@@ -2,7 +2,7 @@ from subprocess import run,check_output,PIPE, Popen,call
 import datetime
 
 #takes function with 1 param
-def celebrate(adv_func, n_ident, n_total):
+def celebrate(adv_func, n_ident=0, n_total=1):
     #scan ble
     run(args=['sudo', "hciconfig", "hci0", "down"])
     run(args=['sudo', "hciconfig", "hci0", "up"])
