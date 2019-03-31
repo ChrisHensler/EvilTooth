@@ -9,26 +9,28 @@ def celebrate(adv_func, n_ident=0, n_total=1):
     monitor_proc = Popen(['sudo','hcitool','lescan'], stdout=PIPE)
     print("monitor proc opened: " + " ".join(['sudo','hcitool','lescan']))
 
-    start_time = datetime.datetime.now()
-    timeout = datetime.timedelta(seconds=8)
+    # start_time = datetime.datetime.now()
+    # timeout = datetime.timedelta(seconds=8)
 
     addresses = []
 
-    while datetime.datetime.now() - start_time <= timeout:
-        print('recving')
-        hci_output = monitor_proc.stdout.readline().decode('utf-8')
-        print(hci_output)
-        if('Input/output error' in hci_output):
-            exit()
+    # while datetime.datetime.now() - start_time <= timeout:
+    print('recving')
+    hci_output = monitor_proc.communicate(timeout=8)[0].decode('utf-8')
+    print(hci_output)
+    if('Input/output error' in hci_output):
+        exit()
 
-        #parse input
-        for line in hci_output.splitlines():
-            segments = line.split(' ')
-            addr = segments[0]
-            name = segments[1]
+    #parse input
+    for line in hci_output.splitlines():
+        segments = line.split(' ')
+        addr = segments[0]
+        name = segments[1]
 
-        if(name and not '(unknown)' in name):
-            addresses.append(addresses)
+    if(name and not '(unknown)' in name):
+        addresses.append(addresses)
+            
+    # monitor_proc.kill()
 
     #advertise a chunk
     print("found " + len(addresses) + " addresses")
