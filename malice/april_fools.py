@@ -28,8 +28,8 @@ def celebrate(adv_func, n_ident=0, n_total=1):
         addr = segments[0]
         name = segments[1]
 
-    if(name and not '(unknown)' in name):
-        addresses.append(addresses)
+        if(name and not '(unknown)' in name):
+            addresses.append(addresses)
             
 
     #advertise a chunk
