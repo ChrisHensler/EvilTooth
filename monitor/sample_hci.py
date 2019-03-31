@@ -8,7 +8,7 @@ print('scanning...')
 #scan ble
 run(args=['sudo', "hciconfig", "hci0", "down"])
 run(args=['sudo', "hciconfig", "hci0", "up"])
-monitor_proc = Popen(['sudo','timeout','2','hcitool','lescan','--duplicates'], stdout=PIPE)
+monitor_proc = Popen(['sudo','hcitool','lescan','--duplicates'], stdout=PIPE)
 
 addr_to_names = {}
 addr_to_occurances = {}
