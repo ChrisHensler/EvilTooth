@@ -23,6 +23,13 @@ def new_log():
     global addr_to_names
     global addr_to_occurances
     global prev_occurances
+
+    for addr in addr_to_names:
+                if(len(addr_to_names[addr]) > 1):
+                    output(addr + " has multiple names, this may be indicative of an attack: " + str(addr_to_names[addr]))
+                if(addr in prev_occurances and prev_occurances[addr] > 0 and addr_to_occurances[addr]/prev_occurances[addr] > 3):
+                    output(addr + " has has seen a major spike in activity, this may be indicative of an attack: " + prev_occurances[addr] + "->" + addr_to_occurances[addr])
+
     addr_to_names = {}
     prev_occurances = addr_to_occurances
     addr_to_occurances = {}
@@ -42,8 +49,6 @@ for hci_output in iter(monitor_proc.stdout.readline, b''):
         segments = line.split(' ')
         addr = segments[0]
         name = segments[1]
-        print("name")
-        print(name)
 
         if(not addr in addr_to_names):
             addr_to_names[addr] = []
@@ -58,13 +63,9 @@ for hci_output in iter(monitor_proc.stdout.readline, b''):
 
         if(time_recorded - start_time > interval):
             #new slice
+            new_log()
+            
             start_time = time_recorded
             output("new slice: " + str(start_time))
 
-        for addr in addr_to_names:
-            if(len(addr_to_names[addr]) > 1):
-                output(addr + " has multiple names, this may be indicative of an attack: " + str(addr_to_names[addr]))
-            if(addr in prev_occurances and prev_occurances[addr] > 0 and addr_to_occurances[addr]/prev_occurances[addr] > 3):
-                output(addr + " has has seen a major spike in activity, this may be indicative of an attack: " + prev_occurances[addr] + "->" + addr_to_occurances[addr])
-
-            prev_occurances[addr] = addr_to_occurances[addr]
+        
