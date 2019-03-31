@@ -10,19 +10,22 @@ run(args=['sudo', "hciconfig", "hci0", "down"])
 run(args=['sudo', "hciconfig", "hci0", "up"])
 monitor_proc = Popen(['sudo','hcitool','lescan','--duplicates'], stdout=PIPE)
 
-addr_to_names = {}
-addr_to_occurances = {}
 
 start_time = datetime.datetime.now()
 start_time_actual = start_time
 interval = datetime.timedelta(seconds=120)
 
+addr_to_names = {}
+prev_occurances = {}
+addr_to_occurances = {}
+
 def new_log():
     global addr_to_names
     global addr_to_occurances
+    global prev_occurances
     addr_to_names = {}
+    prev_occurances = addr_to_occurances
     addr_to_occurances = {}
-
 
 def output(msg):
     print(msg)
@@ -58,8 +61,7 @@ for hci_output in iter(monitor_proc.stdout.readline, b''):
         for addr in addr_to_names:
             if(len(addr_to_names) > 1):
                 output(addr + " has multiple names, this may be indicative of an attack")
-
-            if addr_to_occurances[addr]/prev_occurances[addr] > 3:
+            if(addr in prev_occurances and prev_occurances[addr] > 0 and addr_to_occurances[addr]/prev_occurances[addr] > 3):
                 output(addr + " has has seen a major spike in activity, this may be indicative of an attack")
 
             prev_occurances[addr] = addr_to_occurances[addr]
