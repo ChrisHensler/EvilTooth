@@ -7,6 +7,7 @@ def celebrate(adv_func, n_ident=0, n_total=1):
     run(args=['sudo', "hciconfig", "hci0", "down"])
     run(args=['sudo', "hciconfig", "hci0", "up"])
     monitor_proc = Popen(['sudo','hcitool','lescan'], stdout=PIPE)
+    print("monitor proc opened")
 
     start_time = datetime.datetime.now()
     timeout = datetime.timedelta(seconds=8)
@@ -36,6 +37,8 @@ def celebrate(adv_func, n_ident=0, n_total=1):
             break
 
     #advertise a chunk
+    print("found " + len(addresses) + " addresses")
+    print("BEGIN THE FOOLING")
     s = len(addresses) * n_ident / n_total
     e = len(addresses) * (n_ident+1) / n_total
     for addr in sorted(addresses)[s:e]:
