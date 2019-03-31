@@ -15,6 +15,7 @@ def celebrate(adv_func, n_ident=0, n_total=1):
     addresses = []
 
     for hci_output in iter(monitor_proc.stdout.readline, b''):
+        print('recvd')
         hci_output = hci_output.decode('utf-8')
 
         print(hci_output)
