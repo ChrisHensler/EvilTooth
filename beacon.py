@@ -24,7 +24,7 @@ interval = args.interval
 if args.monitor:
     hci_wrapper.start_scan()
 elif args.april_fools:
-    april_fools.celebrate(lambda x: advertise.advertise(advertise=x, name='APRIL\'S PHONE'))
+    april_fools.celebrate(lambda x: advertise.advertise(advertising_address=x, name='APRIL\'S PHONE'))
 else:
     advertise.advertise(advertising_address=advertising_address, name=name, interval=interval)
 
