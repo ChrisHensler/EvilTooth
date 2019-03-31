@@ -14,13 +14,10 @@ def celebrate(adv_func, n_ident=0, n_total=1):
 
     addresses = []
 
-    def output(msg):
-        print(msg)
-
     for hci_output in iter(monitor_proc.stdout.readline, b''):
         hci_output = hci_output.decode('utf-8')
 
-        output(hci_output)
+        print(hci_output)
         if('Input/output error' in hci_output):
             exit()
 
