@@ -28,7 +28,7 @@ def output(msg):
     print(msg)
 
 for hci_output in iter(monitor_proc.stdout.readline, b''):
-    output(line)
+    output(hci_output)
     if('Input/output error' in hci_output):
         exit()
 
