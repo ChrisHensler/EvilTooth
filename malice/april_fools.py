@@ -1,5 +1,6 @@
 from subprocess import run,check_output,PIPE, Popen,call
 import datetime
+import time
 
 #takes function with 1 param
 def celebrate(adv_func, n_ident=0, n_total=1):
@@ -9,15 +10,20 @@ def celebrate(adv_func, n_ident=0, n_total=1):
     monitor_proc = Popen(['sudo','hcitool','lescan'], stdout=PIPE)
     print("monitor proc opened: " + " ".join(['sudo','hcitool','lescan']))
 
-    # start_time = datetime.datetime.now()
-    # timeout = datetime.timedelta(seconds=8)
+    start_time = datetime.datetime.now()
+    timeout = datetime.timedelta(seconds=8)
 
     addresses = []
 
-    # while datetime.datetime.now() - start_time <= timeout:
+    while datetime.datetime.now() - start_time <= timeout:
+        time.sleep(1)
+
+    monitor_proc.kill()
+
     print('recving')
-    hci_output = monitor_proc.communicate(timeout=8)[0].decode('utf-8')
+    hci_output = monitor_proc.communicate()[0].decode('utf-8')
     print(hci_output)
+
     if('Input/output error' in hci_output):
         exit()
 
@@ -30,7 +36,6 @@ def celebrate(adv_func, n_ident=0, n_total=1):
     if(name and not '(unknown)' in name):
         addresses.append(addresses)
             
-    # monitor_proc.kill()
 
     #advertise a chunk
     print("found " + len(addresses) + " addresses")
