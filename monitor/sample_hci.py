@@ -54,7 +54,7 @@ for hci_output in iter(monitor_proc.stdout.readline, b''):
             addr_to_names[addr] = []
             addr_to_occurances[addr] = 0
             
-        if(name not in addr_to_names[addr]):
+        if(name not in addr_to_names[addr] and not '(unknown)' in name):
             addr_to_names[addr].append(name)
         addr_to_occurances[addr] += 1
 
@@ -64,7 +64,7 @@ for hci_output in iter(monitor_proc.stdout.readline, b''):
         if(time_recorded - start_time > interval):
             #new slice
             new_log()
-            
+
             start_time = time_recorded
             output("new slice: " + str(start_time))
 
