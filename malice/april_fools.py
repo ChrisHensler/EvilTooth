@@ -9,7 +9,7 @@ def celebrate(adv_func, n_ident=0, n_total=1):
     monitor_proc = Popen(['sudo','hcitool','lescan'], stdout=PIPE)
 
     start_time = datetime.datetime.now()
-    timeout = datetime.timedelta(seconds=10)
+    timeout = datetime.timedelta(seconds=8)
 
     addresses = []
 
@@ -29,11 +29,8 @@ def celebrate(adv_func, n_ident=0, n_total=1):
             addr = segments[0]
             name = segments[1]
 
+        if(name and not '(unknown)' in name)
             addresses.append(addresses)
-
-            for addr in addresses:
-                print("fooling " + addr)
-                adv_func(addr)
 
         if(datetime.datetime.now() - start_time > timeout):
             break
@@ -42,4 +39,5 @@ def celebrate(adv_func, n_ident=0, n_total=1):
     s = len(addresses) * n_ident / n_total
     e = len(addresses) * (n_ident+1) / n_total
     for addr in sorted(addresses)[s:e]:
+        print("fooling " + addr)
         adv_func(addr)
