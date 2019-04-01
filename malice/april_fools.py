@@ -12,13 +12,13 @@ def celebrate(adv_func, n_ident=0, n_total=1):
         for line in f.readlines():
             if('Input/output error' in line):
                 exit()
+            if(not '...' in line):
+                segments = line.split(' ')
+                addr = segments[0]
+                name = segments[1]
 
-            segments = line.split(' ')
-            addr = segments[0]
-            name = segments[1]
-
-            if(name and not '(unknown)' in name and not addr in addresses):
-                addresses.append(addr)
+                if(name and not '(unknown)' in name and not addr in addresses):
+                    addresses.append(addr)
             
 
     #advertise a chunk
