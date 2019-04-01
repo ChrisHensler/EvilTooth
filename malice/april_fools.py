@@ -4,40 +4,21 @@ import time
 
 #takes function with 1 param
 def celebrate(adv_func, n_ident=0, n_total=1):
-    #scan ble
-    run(args=['sudo', "hciconfig", "hci0", "down"])
-    run(args=['sudo', "hciconfig", "hci0", "up"])
-    time.sleep(1)
-    #monitor_cmd = ['sudo', 'timeout','--preserve-status','5','sudo','hcitool','lescan']
-    monitor_cmd = ['sudo','hcitool','lescan']
-    print("monitor proc opened: " + " ".join(monitor_cmd))
-    monitor_proc = Popen(monitor_cmd, stdout=PIPE)
-
-    start_time = datetime.datetime.now()
-    timeout = datetime.timedelta(seconds=8)
-
     addresses = []
 
-    print('recving')
-    for hci_output in iter(monitor_proc.stdout.readline, b''):
-        hci_output = hci_output.decode('utf-8')
-        run(args=['sudo', "pkill", "--signal", "SIGKILL", "hcitool"])
-        print(hci_output)
+    #get hci output
+    with open('out/hci_scan.txt') as f:
+        #parse input
+        for line in f.readlines():
+            if('Input/output error' in line):
+                exit()
 
+            segments = line.split(' ')
+            addr = segments[0]
+            name = segments[1]
 
-    exit()
-
-    if('Input/output error' in hci_output):
-        exit()
-
-    #parse input
-    for line in hci_output.splitlines():
-        segments = line.split(' ')
-        addr = segments[0]
-        name = segments[1]
-
-        if(name and not '(unknown)' in name):
-            addresses.append(addresses)
+            if(name and not '(unknown)' in name and not addr in addresses):
+                addresses.append(addr)
             
 
     #advertise a chunk
