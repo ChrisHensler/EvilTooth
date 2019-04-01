@@ -17,8 +17,10 @@ def celebrate(adv_func, n_ident=0, n_total=1):
     addresses = []
 
     print('recving')
-    hci_output = monitor_proc.communicate()[0].decode('utf-8')
+    hci_output = monitor_proc.communicate() #[0].decode('utf-8')
     print(hci_output)
+
+    exit()
 
     if('Input/output error' in hci_output):
         exit()
