@@ -8,8 +8,8 @@ def celebrate(adv_func, n_ident=0, n_total=1):
     run(args=['sudo', "hciconfig", "hci0", "down"])
     run(args=['sudo', "hciconfig", "hci0", "up"])
     monitor_cmd = ['timeout','--preserve-status','5','sudo','hcitool','lescan']
-    monitor_proc = run(monitor_cmd, stdout=PIPE)
     print("monitor proc opened: " + " ".join(monitor_cmd))
+    monitor_proc = run(monitor_cmd, stdout=PIPE)
 
     start_time = datetime.datetime.now()
     timeout = datetime.timedelta(seconds=8)
