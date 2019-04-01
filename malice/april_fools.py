@@ -9,7 +9,7 @@ def celebrate(adv_func, n_ident=0, n_total=1):
     run(args=['sudo', "hciconfig", "hci0", "up"])
     monitor_cmd = ['sudo', 'timeout','--preserve-status','5','sudo','hcitool','lescan']
     print("monitor proc opened: " + " ".join(monitor_cmd))
-    monitor_proc = run(monitor_cmd, stdout=PIPE)
+    monitor_proc = Popen(monitor_cmd, stdout=PIPE)
 
     start_time = datetime.datetime.now()
     timeout = datetime.timedelta(seconds=8)
@@ -17,7 +17,7 @@ def celebrate(adv_func, n_ident=0, n_total=1):
     addresses = []
 
     print('recving')
-    hci_output = monitor_proc.stdout.readlines().decode('utf-8')
+    hci_output = monitor_proc.communicate()[0].decode('utf-8')
     print(hci_output)
 
     if('Input/output error' in hci_output):
