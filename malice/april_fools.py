@@ -13,13 +13,20 @@ def celebrate(adv_func, n_ident=0, n_total=1):
     print("monitor proc opened: " + " ".join(monitor_cmd))
     monitor_proc = Popen(monitor_cmd, stdout=PIPE)
 
+    for hci_output in iter(monitor_proc.stdout.readline, b''):
+        hci_output = hci_output.decode('utf-8')
+    for hci_output in iter(monitor_proc.stderr.readline, b''):
+        hci_output = hci_output.decode('utf-8')
+
+    exit()
+
     start_time = datetime.datetime.now()
     timeout = datetime.timedelta(seconds=8)
 
     addresses = []
 
     print('recving')
-    hci_output = monitor_proc.communicate() #[0].decode('utf-8')
+    hci_output = monitor_proc.stderr#[0].decode('utf-8')
     print(hci_output)
 
     exit()
