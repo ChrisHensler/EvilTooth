@@ -10,7 +10,6 @@ def start_scan():
     run(args=['sudo', "hciconfig", "hci0", "up"])
     monitor_proc = Popen(['sudo','hcitool','lescan','--duplicates'], stdout=PIPE)
 
-
     start_time = datetime.datetime.now()
     start_time_actual = start_time
     interval = datetime.timedelta(seconds=120)
