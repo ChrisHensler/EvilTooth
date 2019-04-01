@@ -9,18 +9,9 @@ def celebrate(adv_func, n_ident=0, n_total=1):
     run(args=['sudo', "hciconfig", "hci0", "up"])
     time.sleep(1)
     #monitor_cmd = ['sudo', 'timeout','--preserve-status','5','sudo','hcitool','lescan']
-    monitor_cmd = ['sudo', 'timeout','--preserve-status','30','sudo','hcitool','lescan']
+    monitor_cmd = ['sudo','hcitool','lescan']
     print("monitor proc opened: " + " ".join(monitor_cmd))
     monitor_proc = Popen(monitor_cmd, stdout=PIPE)
-
-    if monitor_proc.stdout:
-        for hci_output in iter(monitor_proc.stdout.readline, b''):
-            hci_output = hci_output.decode('utf-8')
-    if monitor_proc.stderr:
-        for hci_output in iter(monitor_proc.stderr.readline, b''):
-            hci_output = hci_output.decode('utf-8')
-
-    exit()
 
     start_time = datetime.datetime.now()
     timeout = datetime.timedelta(seconds=8)
@@ -28,8 +19,11 @@ def celebrate(adv_func, n_ident=0, n_total=1):
     addresses = []
 
     print('recving')
-    hci_output = monitor_proc.stderr#[0].decode('utf-8')
-    print(hci_output)
+    for hci_output in iter(monitor_proc.stdout.readline, b''):
+        hci_output = hci_output.decode('utf-8')
+        run(args=['sudo', "pkill", "--signal", "SIGKILL", "hcitool"])
+        print(hci_output)
+
 
     exit()
 
