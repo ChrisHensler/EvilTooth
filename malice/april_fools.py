@@ -29,3 +29,4 @@ def celebrate(adv_func, n_ident=0, n_total=1):
     for addr in sorted(addresses)[s:e]:
         print("fooling " + addr)
         adv_func(addr)
+        time.sleep(1)
