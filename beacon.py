@@ -16,7 +16,7 @@ parser.add_argument('-m', action="store_true", dest="monitor_hci", help='monitor
 parser.add_argument('-u', action="store_true", dest="monitor_ubertooth", help='monitor flag', default=False)
 parser.add_argument('--APRIL_FOOLS', action="store_true", dest="april_fools", help='joke utility, do not use', default=False)
 parser.add_argument('--af_num', action="store", dest="af_num", help='april fools id', type=int, default=0)
-parser.add_argument('--af_total', action="store", dest="af_total", help='april fools total', type=int, default=0)
+parser.add_argument('--af_total', action="store", dest="af_total", help='april fools total', type=int, default=1)
 parser.add_argument('--af_test', action="store_true", dest="af_test", help='joke utility, do not use', default=False)
 parser.add_argument('--wait', action="store", dest="wait", help='wait a bit before running', type=int, default=0)
 parser.add_argument('--af_target', action="store", dest="af_target", help='joke utility, do not use', default=None)
