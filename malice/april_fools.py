@@ -3,25 +3,27 @@ import datetime
 import time
 
 #takes function with 1 param
-def celebrate(adv_func, n_ident=0, n_total=1, af_test=False):
+def celebrate(adv_func, n_ident=0, n_total=1, af_test=False, af_target=None):
     addresses = []
+    if af_target:
+        addresses = [af_target]
+    else:
+        #scan
+        Popen("sudo hcitool lescan > out/hci_scan.txt",shell=True)
 
-    #scan
-    Popen("sudo hcitool lescan > out/hci_scan.txt",shell=True)
+        #get hci output
+        with open('out/hci_scan.txt') as f:
+            #parse input
+            for line in f.readlines():
+                if('Input/output error' in line):
+                    exit()
+                if(not '...' in line): #filtering the first line of output
+                    segments = line.split(' ')
+                    addr = segments[0]
+                    name = segments[1]
 
-    #get hci output
-    with open('out/hci_scan.txt') as f:
-        #parse input
-        for line in f.readlines():
-            if('Input/output error' in line):
-                exit()
-            if(not '...' in line): #filtering the first line of output
-                segments = line.split(' ')
-                addr = segments[0]
-                name = segments[1]
-
-                if(name and '(unknown)' in name and not addr in addresses):
-                    addresses.append(addr)
+                    if(name and '(unknown)' in name and not addr in addresses):
+                        addresses.append(addr)
             
 
     #advertise a chunk

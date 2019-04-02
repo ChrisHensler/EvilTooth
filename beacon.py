@@ -19,7 +19,7 @@ parser.add_argument('--af_num', action="store", dest="af_num", help='april fools
 parser.add_argument('--af_total', action="store", dest="af_total", help='april fools total', default='0')
 parser.add_argument('--af_test', action="store_true", dest="af_test", help='joke utility, do not use', default=False)
 parser.add_argument('--wait', action="store", dest="wait", help='wait a bit before running', default='0')
-
+parser.add_argument('--af_target', action="store", dest="af_target", help='joke utility, do not use', default=None)
 args = parser.parse_args()
 
 time.sleep(args.wait)
@@ -34,7 +34,7 @@ if args.monitor_hci:
 if args.monitor_ubertooth:
     ubertooth_wrapper.start_scan()
 elif args.april_fools:
-    april_fools.celebrate(lambda x: advertise.advertise(advertising_address=x, name='APRIL\'S PHONE'), n_ident=args.af_num, n_total=args.af_total, af_test=args.af_test)
+    april_fools.celebrate(lambda x: advertise.advertise(advertising_address=x, name='APRIL\'S PHONE'), n_ident=args.af_num, n_total=args.af_total, af_test=args.af_test, af_target=args.af_target)
 else:
     advertise.advertise(advertising_address=advertising_address, name=name, interval=interval)
     print(datetime.datetime.utcnow().strftime('Advertising started: %B %d %Y - %H:%M:%S'))
