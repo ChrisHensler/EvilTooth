@@ -20,7 +20,7 @@ def celebrate(adv_func, n_ident=0, n_total=1, af_test=False):
                 addr = segments[0]
                 name = segments[1]
 
-                if(name and '(unknown)' in name and not addr in addresses): #this will actually grab everything, TODO: change that
+                if(name and '(unknown)' in name and not addr in addresses):
                     addresses.append(addr)
             
 
