@@ -1,6 +1,6 @@
 from subprocess import run
 
-def advertise(advertising_address='', interval=30, name='NAME'):
+def advertise(advertising_address='', interval=30, name=None):
     #set addr
     run(args=['sudo', 'bdaddr',advertising_address])
 
@@ -40,6 +40,6 @@ def advertise(advertising_address='', interval=30, name='NAME'):
 
     run(args=["sudo","btmgmt", "-i", "hci0","le","on"])
     run(args=["sudo","btmgmt","-i","hci0","connectable","on"])
-    run(args=["sudo","btmgmt","-i","hci0","name",name]).stdout
+    if name: run(args=["sudo","btmgmt","-i","hci0","name",name]).stdout
     run(args=["sudo","btmgmt","-i","hci0","advertising","on"]).stdout
     run(args=["sudo","btmgmt","-i","hci0","power","on"]).stdout
