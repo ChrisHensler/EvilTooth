@@ -46,6 +46,6 @@ def advertise(advertising_address='', interval=30, name=None):
         print("disabling scan because we have no name")
         run(args=["sudo","hciconfig","hci0","noscan"]).stdout
 
-    run(args=["sudo","hciconfig","hci0","leadv","3"]).stdout
+    #run(args=["sudo","hciconfig","hci0","leadv","3"]).stdout
     #run(args=["sudo","btmgmt","-i","hci0","advertising","on"]).stdout
     #run(args=["sudo","btmgmt","-i","hci0","power","on"]).stdout
