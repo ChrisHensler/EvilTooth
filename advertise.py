@@ -5,7 +5,7 @@ def advertise(advertising_address='', interval=30, name=None):
     run(args=['sudo', 'bdaddr',advertising_address])
 
     #reset bluetooth (needs to happen after addr set)
-    run(args=['sudo', 'hciconfig','0','reset'])
+    run(args=['sudo', 'hciconfig','hci0','reset'])
 
     #set advertising frequency
     def int_to_hexstring(i):
