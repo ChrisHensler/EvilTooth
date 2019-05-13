@@ -26,14 +26,15 @@ def advertise(advertising_address='', interval=30, name=None):
     # run(args="sudo hcitool -i hci0 cmd 0x08 0x0008 1E 02 01 1A 1A FF 4C 00 02 15 11 11 22 22 33 33 44 44 55 55 66 66 77 77 88 88 00 00 00 00 C8 00".split(' '))
 
 
-    run(args=["sudo","hciconfig","hci0","noleadv"]).stdout  #kill advertising
     if name:
         run(args=["sudo","btmgmt","-i","hci0","name",name]).stdout
+        run(args=["sudo","hciconfig","hci0","noleadv"]).stdout  #kill advertising
         run(args=["sudo","hciconfig","hci0","leadv 3"]).stdout  #resume advertising
         run(args=["sudo","hciconfig","hci0","piscan"]).stdout   #enable scan
 
     else:
         print("disabling scan because we have no name")
+        run(args=["sudo","hciconfig","hci0","noleadv"]).stdout  #kill advertising
         run(args=["sudo","hciconfig","hci0","leadv 3"]).stdout  #resume advertising
         run(args=["sudo","hciconfig","hci0","noscan"]).stdout   #disable scan
 
