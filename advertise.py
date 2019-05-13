@@ -22,6 +22,18 @@ def advertise(advertising_address='', interval=30, name=None):
 
     print("Advertising Address: %s,\n Min Interval: %s,\nMax Interval: %s\n"%(advertising_address, min_interval, max_interval))
 
+    run(args=["sudo","hciconfig","hci0","noleadv"]).stdout  #kill advertising
+    if name:
+        run(args=["sudo","btmgmt","-i","hci0","name",name]).stdout
+        run(args=["sudo","hciconfig","hci0","leadv 3"]).stdout  #resume advertising
+        run(args=["sudo","hciconfig","hci0","piscan"]).stdout   #enable scan
+
+    else:
+        print("disabling scan because we have no name")
+        run(args=["sudo","hciconfig","hci0","leadv 3"]).stdout  #resume advertising
+        run(args=["sudo","hciconfig","hci0","noscan"]).stdout   #disable scan
+
+
     cmd_args = ['sudo', 'hcitool','-i','hci0','cmd']
     cmd_args.append('0x08')                                     #ogf
     cmd_args.append('0x0006')                                   #ocf
@@ -37,17 +49,3 @@ def advertise(advertising_address='', interval=30, name=None):
 
     #set advertise ##TODO: dissect the command and make more configurable
     run(args="sudo hcitool -i hci0 cmd 0x08 0x0008 1E 02 01 1A 1A FF 4C 00 02 15 11 11 22 22 33 33 44 44 55 55 66 66 77 77 88 88 00 00 00 00 C8 00".split(' '))
-
-    #run(args=["sudo","btmgmt", "-i", "hci0","le","on"])
-    #run(args=["sudo","btmgmt","-i","hci0","connectable","on"])
-    if name:
-        run(args=["sudo","btmgmt","-i","hci0","name",name]).stdout
-    else:
-        print("disabling scan because we have no name")
-        run(args=["sudo","hciconfig","hci0","noleadv"]).stdout  #kill advertising
-        run(args=["sudo","hciconfig","hci0","leadv 3"]).stdout  #resume advertising
-        run(args=["sudo","hciconfig","hci0","noscan"]).stdout   #disable scan
-
-    #run(args=["sudo","hciconfig","hci0","leadv","3"]).stdout
-    #run(args=["sudo","btmgmt","-i","hci0","advertising","on"]).stdout
-    #run(args=["sudo","btmgmt","-i","hci0","power","on"]).stdout
