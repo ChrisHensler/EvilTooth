@@ -22,8 +22,8 @@ def advertise(advertising_address='', interval=30, name=None):
 
     print("Advertising Address: %s,\n Min Interval: %s,\nMax Interval: %s\n"%(advertising_address, min_interval, max_interval))
 
-    #set advertise using magic command ##TODO: dissect the command and make more configurable
-    run(args="sudo hcitool -i hci0 cmd 0x08 0x0008 1E 02 01 1A 1A FF 4C 00 02 15 11 11 22 22 33 33 44 44 55 55 66 66 77 77 88 88 00 00 00 00 C8 00".split(' '))
+    # #set advertise using magic command ##TODO: dissect the command and make more configurable
+    # run(args="sudo hcitool -i hci0 cmd 0x08 0x0008 1E 02 01 1A 1A FF 4C 00 02 15 11 11 22 22 33 33 44 44 55 55 66 66 77 77 88 88 00 00 00 00 C8 00".split(' '))
 
 
     run(args=["sudo","hciconfig","hci0","noleadv"]).stdout  #kill advertising
