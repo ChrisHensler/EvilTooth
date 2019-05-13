@@ -44,7 +44,7 @@ def advertise(advertising_address='', interval=30, name=None):
         run(args=["sudo","btmgmt","-i","hci0","name",name]).stdout
         run(args=["sudo","hciconfig","hci0","noleadv"]).stdout  #kill advertising
         run(args=["sudo","hciconfig","hci0","leadv 3"]).stdout  #resume advertising
-        run(args=["sudo","hciconfig","hci0","noscan"]).stdout   #disable scan
+        run(args=["sudo","hciconfig","hci0","piscan"]).stdout   #disable scan
 
     else:
         print("disabling scan because we have no name")
