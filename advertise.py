@@ -46,7 +46,6 @@ def advertise(advertising_address='', interval=30, name=None):
         
 
     run(args=["sudo","hciconfig","hci0","noleadv"]).stdout  #kill advertising
-    run(args=["sudo","hciconfig","hci0","leadv 3"]).stdout  #resume advertising
 
     time.sleep(1)
     if name:
@@ -55,11 +54,10 @@ def advertise(advertising_address='', interval=30, name=None):
         run(args=["sudo","hciconfig","hci0","noscan"]).stdout   #disable scan
 
     time.sleep(1)
-    run(args=["sudo","hciconfig","hci0","noleadv"]).stdout  #kill advertising
     run(args=["sudo","hciconfig","hci0","leadv 3"]).stdout  #resume advertising
 
-    time.sleep(1)
     if name:
         run(args=["sudo","hciconfig","hci0","piscan"]).stdout   #disable scan
     else:
         run(args=["sudo","hciconfig","hci0","noscan"]).stdout   #disable scan
+
